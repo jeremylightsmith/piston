@@ -32,3 +32,9 @@ namespace :manifest do
     `rake check_manifest | patch -p0 > Manifest.txt`
   end
 end
+
+desc 'Generate Gemspec file for GitHub'
+task :refresh_gemspec do
+  gemspec = `rake debug_gem`.split("\n")[1..-1].join("\n")
+  File.open("piston.gemspec", "w") {|f| f << gemspec }
+end
